@@ -2,8 +2,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.myapplication.adapters.AdapterItem
 
 
-class DiffUtilsAdapterItems (private val newData: List<AdapterItem>?, private val oldData: List<AdapterItem>?):
-    DiffUtil.Callback(){
+class DiffUtilsAdapterItems(
+    private val newData: List<AdapterItem>?,
+    private val oldData: List<AdapterItem>?
+) :
+    DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldData?.size ?: 0

@@ -15,7 +15,7 @@ import com.example.myapplication.adapters.VideoAdapterItem
 import com.example.myapplication.model.Video
 
 
-class VideosAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val data: MutableList<AdapterItem> = mutableListOf()
     private var onClick: OnClick? = null
@@ -69,7 +69,7 @@ class VideosAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return data.size
     }
 
-    inner  class VideoViewHolder(
+    inner class VideoViewHolder(
         itemView: View,
     ) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView
@@ -82,7 +82,7 @@ class VideosAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             genres = itemView.findViewById(R.id.card_subtitle)
 
             val card: CardView = itemView.findViewById(R.id.card)
-            card.setOnClickListener{
+            card.setOnClickListener {
                 val item = data[adapterPosition]
                 if (item is VideoAdapterItem) {
                     if (getOnClick() != null) {

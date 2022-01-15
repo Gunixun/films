@@ -41,7 +41,7 @@ class VideosListFragment : Fragment() {
             (activity as NavToolBar?)!!.supplyToolbar(binding.toolbar)
         }
 
-        binding.toolbar.setOnMenuItemClickListener{menuItem ->
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.search -> {
                     true
@@ -59,9 +59,9 @@ class VideosListFragment : Fragment() {
 
         model = VideosViewModel()
 
-        binding.swipeToRefresh.setOnRefreshListener{ model.getAllVideos() }
+        binding.swipeToRefresh.setOnRefreshListener { model.getAllVideos() }
 
-        model.getLiveData().observe(viewLifecycleOwner, Observer<AppState>{ state ->
+        model.getLiveData().observe(viewLifecycleOwner, Observer<AppState> { state ->
             renderData(state)
         })
         model.getAllVideos()
@@ -70,7 +70,7 @@ class VideosListFragment : Fragment() {
 
     private fun renderData(state: AppState) {
         binding.swipeToRefresh.isRefreshing = false
-        when (state){
+        when (state) {
             is AppState.Success -> {
                 binding.empty.isVisible = state.videos.isEmpty()
                 adapter.setData(state.videos)

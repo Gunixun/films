@@ -16,9 +16,33 @@ class MemoryVideosRepository : IRepository {
 
 
     init {
-        videos.add(Video("Человек паук", "Описание", "9.0", "Триллер", UUID.randomUUID().toString()))
-        videos.add(Video("Человек паук2", "Описание", "9.0", "Триллер", UUID.randomUUID().toString()))
-        videos.add(Video("Человек паук3", "Описание", "9.0", "Триллер", UUID.randomUUID().toString()))
+        videos.add(
+            Video(
+                "Человек паук",
+                "Описание",
+                "9.0",
+                "Триллер",
+                UUID.randomUUID().toString()
+            )
+        )
+        videos.add(
+            Video(
+                "Человек паук2",
+                "Описание",
+                "9.0",
+                "Триллер",
+                UUID.randomUUID().toString()
+            )
+        )
+        videos.add(
+            Video(
+                "Человек паук3",
+                "Описание",
+                "9.0",
+                "Триллер",
+                UUID.randomUUID().toString()
+            )
+        )
     }
 
 
@@ -37,7 +61,7 @@ class MemoryVideosRepository : IRepository {
                         callback.onSuccess(mutableListOf());
                     }
                 } else {
-                        callback.onError(IOException());
+                    callback.onError(IOException());
                 }
             }
         }

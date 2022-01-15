@@ -1,6 +1,6 @@
 package com.example.myapplication.model
 
-interface Callback <T>{
+interface Callback<T> {
 
     fun onSuccess(result: T)
 

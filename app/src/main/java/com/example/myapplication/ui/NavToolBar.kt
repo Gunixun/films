@@ -4,5 +4,5 @@ import androidx.appcompat.widget.Toolbar
 
 
 interface NavToolBar {
-    public fun supplyToolbar(toolbar: Toolbar)
+    fun supplyToolbar(toolbar: Toolbar)
 }

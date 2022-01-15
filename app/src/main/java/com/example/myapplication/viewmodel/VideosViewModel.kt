@@ -8,17 +8,18 @@ import com.example.myapplication.model.IRepository
 import com.example.myapplication.model.MemoryVideosRepository
 import com.example.myapplication.model.Video
 
-class VideosViewModel(private val videos : MutableLiveData<AppState> = MutableLiveData()): ViewModel(){
+class VideosViewModel(private val videos: MutableLiveData<AppState> = MutableLiveData()) :
+    ViewModel() {
 
     private val repository: IRepository = MemoryVideosRepository()
 
-    fun getLiveData() : LiveData<AppState> = videos
+    fun getLiveData(): LiveData<AppState> = videos
 
     fun getAllVideos() {
         videos.postValue(AppState.Loading)
 
-        repository.getFilms(object: Callback<List<Video>> {
-            override fun onSuccess(result: List<Video>){
+        repository.getFilms(object : Callback<List<Video>> {
+            override fun onSuccess(result: List<Video>) {
                 videos.postValue(AppState.Success(result))
             }
 
