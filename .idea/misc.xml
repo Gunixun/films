@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_video.xml" value="0.1" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_videos_list.xml" value="0.25" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/item_note.xml" value="0.25" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/menu_nav_drawer.xml" value="0.1" />

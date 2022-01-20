@@ -12,7 +12,8 @@ import com.example.myapplication.ui.NavToolBar
 import com.example.myapplication.viewmodel.VideosViewModel
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.example.myapplication.model.Video
+import com.example.myapplication.ui.details.VideoFragment
 import com.example.myapplication.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,6 +37,21 @@ class VideosListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = VideosAdapter()
+        adapter.setOnClick(object : VideosAdapter.OnClick {
+            override fun onClick(video: Video) {
+                val manager = activity?.supportFragmentManager
+                manager
+                    ?.beginTransaction()
+                    ?.replace(R.id.container, VideoFragment.newInstance(video))
+                    ?.addToBackStack("")
+                    ?.commit()
+            }
+
+            override fun onLongClick(video: Video) {
+                return
+            }
+
+        })
 
         if (activity is NavToolBar) {
             (activity as NavToolBar?)!!.supplyToolbar(binding.toolbar)
