@@ -9,7 +9,7 @@ import com.example.myapplication.model.MemoryVideosRepository
 import com.example.myapplication.model.Video
 
 class VideosViewModel(private val videos: MutableLiveData<AppState> = MutableLiveData()) :
-    ViewModel() {
+    BaseViewModel() {
 
     private val repository: IRepository = MemoryVideosRepository()
 
