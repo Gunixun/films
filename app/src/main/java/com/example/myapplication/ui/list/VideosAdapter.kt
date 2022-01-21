@@ -40,7 +40,8 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 VideoAdapterItem(
                     video,
                     video.title,
-                    video.genres
+                    video.genres,
+                    video.rating
                 )
             )
         }
@@ -62,6 +63,7 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val video: VideoAdapterItem = data[position] as VideoAdapterItem
             noteViewHolder.title.text = video.title
             noteViewHolder.genres.text = video.genres
+            noteViewHolder.rating.text = "Рейтинг: ${video.rating}"
         }
     }
 
@@ -75,11 +77,13 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val image: ImageView
         val title: TextView
         val genres: TextView
+        val rating: TextView
 
         init {
             image = itemView.findViewById(R.id.image_view)
             title = itemView.findViewById(R.id.card_title)
-            genres = itemView.findViewById(R.id.card_subtitle)
+            genres = itemView.findViewById(R.id.genres_textview)
+            rating = itemView.findViewById(R.id.rating_title)
 
             val card: CardView = itemView.findViewById(R.id.card)
             card.setOnClickListener {

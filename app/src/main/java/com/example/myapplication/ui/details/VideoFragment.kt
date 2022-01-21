@@ -39,8 +39,9 @@ class VideoFragment : Fragment() {
 
         val video = arguments?.getParcelable<Video>(ARG_PARAM)
         if (video != null) {
-            binding.shortInfoTextview.text = video.title
-            binding.bodyTextview.text = video.body
+            binding.titleTextview.text = video.title
+            binding.ratingTextview.text = "Рейтинг: ${video.rating}"
+            binding.shortInfoTextview.text = video.genres
         }
     }
 

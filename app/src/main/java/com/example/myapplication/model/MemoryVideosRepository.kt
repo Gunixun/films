@@ -19,7 +19,6 @@ class MemoryVideosRepository : IRepository {
         videos.add(
             Video(
                 "Человек паук",
-                "Описание",
                 "9.0",
                 "Триллер",
                 UUID.randomUUID().toString()
@@ -28,7 +27,6 @@ class MemoryVideosRepository : IRepository {
         videos.add(
             Video(
                 "Человек паук2",
-                "Описание",
                 "9.0",
                 "Триллер",
                 UUID.randomUUID().toString()
@@ -37,7 +35,6 @@ class MemoryVideosRepository : IRepository {
         videos.add(
             Video(
                 "Человек паук3",
-                "Описание",
                 "9.0",
                 "Триллер",
                 UUID.randomUUID().toString()
@@ -49,20 +46,21 @@ class MemoryVideosRepository : IRepository {
     override fun getFilms(callback: Callback<List<Video>>) {
         executor.execute {
             try {
-                Thread.sleep(3000L)
+                Thread.sleep(1000L)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
             handler.post {
-                if (Random().nextBoolean()) {
-                    if (Random().nextBoolean()) {
-                        callback.onSuccess(videos);
-                    } else {
-                        callback.onSuccess(mutableListOf());
-                    }
-                } else {
-                    callback.onError(IOException());
-                }
+                callback.onSuccess(videos);
+//                if (Random().nextBoolean()) {
+//                    if (Random().nextBoolean()) {
+//                        callback.onSuccess(videos);
+//                    } else {
+//                        callback.onSuccess(mutableListOf());
+//                    }
+//                } else {
+//                    callback.onError(IOException());
+//                }
             }
         }
     }

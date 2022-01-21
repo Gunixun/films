@@ -9,4 +9,5 @@
     <string name="image_video">Image video</string>
     <string name="retry">Повторить</string>
     <string name="empty">Данные отсутствуют</string>
+    <string name="video_image_description">Картинка фильма</string>
 </resources>

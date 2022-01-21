@@ -5,7 +5,8 @@ import com.example.myapplication.model.Video
 class VideoAdapterItem(
     val video: Video,
     val title: String,
-    val genres: String
+    val genres: String,
+    val rating: String
 ) :
     AdapterItem(video.id) {
 
@@ -21,6 +22,7 @@ class VideoAdapterItem(
         var result = video.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + genres.hashCode()
+        result = 31 * result + rating.hashCode()
         return result
     }
 }
