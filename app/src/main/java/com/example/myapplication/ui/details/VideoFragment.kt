@@ -18,11 +18,11 @@ class VideoFragment : Fragment() {
         const val ARG_PARAM = "video"
 
         fun newInstance(video: Video): VideoFragment {
-            val bundle = Bundle()
-            bundle.putParcelable(ARG_PARAM, video)
-            val fragment = VideoFragment()
-            fragment.arguments = bundle
-            return fragment
+            return VideoFragment().also { fragment ->
+                fragment.arguments = Bundle().also { bundle ->
+                    bundle.putParcelable(ARG_PARAM, video)
+                }
+            }
         }
     }
 
@@ -37,11 +37,12 @@ class VideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val video = arguments?.getParcelable<Video>(ARG_PARAM)
-        if (video != null) {
-            binding.titleTextview.text = video.title
-            binding.ratingTextview.text = "Рейтинг: ${video.rating}"
-            binding.shortInfoTextview.text = video.genres
+        arguments?.getParcelable<Video>(ARG_PARAM)?.let { video ->
+            video.also {
+                binding.titleTextview.text = it.title
+                binding.ratingTextview.text = "Рейтинг: ${it.rating}"
+                binding.shortInfoTextview.text = it.genres
+            }
         }
     }
 

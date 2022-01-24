@@ -11,21 +11,20 @@ import com.example.myapplication.ui.list.VideosListFragment
 
 class MainActivity : AppCompatActivity(), NavToolBar {
 
-    private var drawer: DrawerLayout? = null
+    private val drawer: DrawerLayout by lazy {
+        findViewById(R.id.drawer)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        drawer = findViewById(R.id.drawer)
 
         if (savedInstanceState == null) {
             openFragment(VideosListFragment(), false)
         }
     }
 
-
-    fun openFragment(fragment: Fragment, withTransaction: Boolean) {
+    private fun openFragment(fragment: Fragment, withTransaction: Boolean) {
         if (withTransaction) {
             supportFragmentManager
                 .beginTransaction()
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity(), NavToolBar {
             R.string.nav_app_bar_navigate_up_description
         )
 
-        drawer!!.addDrawerListener(toggle)
+        drawer.addDrawerListener(toggle)
         toggle.syncState()
     }
 }

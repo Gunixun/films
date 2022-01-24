@@ -1,8 +1,6 @@
 package com.example.myapplication.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.myapplication.model.Callback
 import com.example.myapplication.model.IRepository
 import com.example.myapplication.model.MemoryVideosRepository
@@ -13,7 +11,7 @@ class VideosViewModel(private val videos: MutableLiveData<AppState> = MutableLiv
 
     private val repository: IRepository = MemoryVideosRepository()
 
-    fun getLiveData(): LiveData<AppState> = videos
+    fun getLiveData() = videos
 
     fun getAllVideos() {
         videos.postValue(AppState.Loading)
