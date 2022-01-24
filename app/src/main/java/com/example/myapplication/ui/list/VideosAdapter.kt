@@ -4,9 +4,7 @@ import DiffUtilsAdapterItems
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -20,9 +18,7 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val data: MutableList<AdapterItem> = mutableListOf()
     private var onClick: OnClick? = null
 
-    fun getOnClick(): OnClick? {
-        return onClick
-    }
+    fun getOnClick() = onClick
 
     fun setOnClick(onClick: OnClick) {
         this.onClick = onClick
@@ -52,49 +48,33 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val itemView: View =
+        return VideoViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
-        return VideoViewHolder(itemView)
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is VideoViewHolder) {
-            val noteViewHolder = holder
-            val video: VideoAdapterItem = data[position] as VideoAdapterItem
-            noteViewHolder.title.text = video.title
-            noteViewHolder.genres.text = video.genres
-            noteViewHolder.rating.text = "Рейтинг: ${video.rating}"
+            holder.bind(data[position] as VideoAdapterItem)
         }
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount() = data.size
 
-    inner class VideoViewHolder(
-        itemView: View,
-    ) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView
-        val title: TextView
-        val genres: TextView
-        val rating: TextView
+    inner class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        init {
-            image = itemView.findViewById(R.id.image_view)
-            title = itemView.findViewById(R.id.card_title)
-            genres = itemView.findViewById(R.id.genres_textview)
-            rating = itemView.findViewById(R.id.rating_title)
-
-            val card: CardView = itemView.findViewById(R.id.card)
-            card.setOnClickListener {
-                val item = data[adapterPosition]
-                if (item is VideoAdapterItem) {
+        fun bind(videoItem: VideoAdapterItem) {
+//            itemView.findViewById<TextView>(R.id.image_view).text = video.title
+            with(itemView) {
+                findViewById<TextView>(R.id.card_title).text = videoItem.title
+                findViewById<TextView>(R.id.genres_textview).text = videoItem.genres
+                findViewById<TextView>(R.id.rating_title).text = "Рейтинг: ${videoItem.rating}"
+                setOnClickListener {
                     if (getOnClick() != null) {
-                        getOnClick()?.onClick(item.video)
+                        getOnClick()?.onClick(videoItem.video)
                     }
                 }
             }
-
         }
     }
 }

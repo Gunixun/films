@@ -7,13 +7,12 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentVideosListBinding
 import com.example.myapplication.ui.NavToolBar
 import com.example.myapplication.viewmodel.VideosViewModel
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.model.Video
+import com.example.myapplication.showSnackBar
 import com.example.myapplication.ui.BaseFragment
 import com.example.myapplication.ui.details.VideoFragment
 import com.example.myapplication.viewmodel.AppState
-import com.google.android.material.snackbar.Snackbar
 
 class VideosListFragment : BaseFragment<VideosViewModel, FragmentVideosListBinding>(FragmentVideosListBinding::inflate) {
 
@@ -25,8 +24,7 @@ class VideosListFragment : BaseFragment<VideosViewModel, FragmentVideosListBindi
         adapter = VideosAdapter()
         adapter.setOnClick(object : VideosAdapter.OnClick {
             override fun onClick(video: Video) {
-                val manager = activity?.supportFragmentManager
-                manager
+                activity?.supportFragmentManager
                     ?.beginTransaction()
                     ?.replace(R.id.container, VideoFragment.newInstance(video))
                     ?.addToBackStack("")
@@ -43,25 +41,26 @@ class VideosListFragment : BaseFragment<VideosViewModel, FragmentVideosListBindi
             (activity as NavToolBar?)!!.supplyToolbar(binding.toolbar)
         }
 
-        binding.toolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.search -> {
-                    true
+        with (binding) {
+            toolbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.search -> {
+                        true
+                    }
+                    else -> false
                 }
-                else -> false
             }
+            videosList.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            videosList.adapter = adapter
+
+            swipeToRefresh.setOnRefreshListener { viewModel.getAllVideos() }
         }
 
-        binding.videosList.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-        binding.videosList.adapter = adapter
-
-        binding.swipeToRefresh.setOnRefreshListener { viewModel.getAllVideos() }
-
-        viewModel.getLiveData().observe(viewLifecycleOwner, Observer<AppState> { state ->
+        viewModel.getLiveData().observe(viewLifecycleOwner, { state ->
             renderData(state)
         })
         viewModel.getAllVideos()
@@ -77,16 +76,18 @@ class VideosListFragment : BaseFragment<VideosViewModel, FragmentVideosListBindi
 
             }
             is AppState.Loading -> {
-                binding.empty.isVisible = false
-                binding.swipeToRefresh.isRefreshing = true
+                with (binding) {
+                    empty.isVisible = false
+                    swipeToRefresh.isRefreshing = true
+                }
             }
             is AppState.Error -> {
                 binding.empty.isVisible = true
-                Snackbar
-                    .make(binding.root, state.error.toString(), Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.retry) { viewModel.getAllVideos() }
-                    .show()
-
+                binding.root.showSnackBar(
+                    text =state.error.toString(),
+                    actionText = R.string.retry,
+                    {viewModel.getAllVideos()}
+                )
             }
         }
     }
