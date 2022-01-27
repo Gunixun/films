@@ -17,6 +17,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def apiKey  = properties.getProperty("themoviedb_movie_api_key", "")
+        it.buildConfigField "String", "MOVIE_API_KEY", apiKey
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -38,6 +45,11 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8'
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'

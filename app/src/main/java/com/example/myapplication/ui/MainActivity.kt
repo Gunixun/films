@@ -7,7 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
-import com.example.myapplication.ui.list.VideosListFragment
+import com.example.myapplication.ui.list.MoviesListFragment
 
 class MainActivity : AppCompatActivity(), NavToolBar {
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), NavToolBar {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            openFragment(VideosListFragment(), false)
+            openFragment(MoviesListFragment(), false)
         }
     }
 

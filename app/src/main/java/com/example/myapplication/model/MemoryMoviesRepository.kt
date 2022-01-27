@@ -2,48 +2,56 @@ package com.example.myapplication.model
 
 import android.os.Handler
 import android.os.Looper
-import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class MemoryVideosRepository : IRepository {
+class MemoryMoviesRepository : IRepository {
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
     private val handler = Handler(Looper.getMainLooper())
 
-    private val videos: MutableList<Video> = mutableListOf()
+    private val videos: MutableList<MoviePreview> = mutableListOf()
 
 
     init {
         videos.add(
-            Video(
+            MoviePreview(
+                "Человек паук: Нет пути домой",
+                "Spider man",
+                "9.0",
+                mutableListOf("боевик", "приключения", "фэнтези", "фантастика"),
+                UUID.randomUUID().toString(),
+                "",
+                "2021"
+            )
+        )
+        videos.add(
+            MoviePreview(
                 "Человек паук",
+                "Spider man",
                 "9.0",
-                "Триллер",
-                UUID.randomUUID().toString()
+                mutableListOf("Ужасы"),
+                UUID.randomUUID().toString(),
+                "",
+                "2021"
             )
         )
         videos.add(
-            Video(
-                "Человек паук2",
+            MoviePreview(
+                "Человек паук",
+                "Spider man",
                 "9.0",
-                "Триллер",
-                UUID.randomUUID().toString()
-            )
-        )
-        videos.add(
-            Video(
-                "Человек паук3",
-                "9.0",
-                "Триллер",
-                UUID.randomUUID().toString()
+                mutableListOf("Ужасы"),
+                UUID.randomUUID().toString(),
+                "",
+                "2021"
             )
         )
     }
 
 
-    override fun getFilms(callback: Callback<List<Video>>) {
+    override fun getMovies(callback: Callback<List<MoviePreview>>) {
         executor.execute {
             try {
                 Thread.sleep(1000L)
@@ -51,7 +59,7 @@ class MemoryVideosRepository : IRepository {
                 e.printStackTrace()
             }
             handler.post {
-                callback.onSuccess(videos);
+                callback.onSuccess(videos)
 //                if (Random().nextBoolean()) {
 //                    if (Random().nextBoolean()) {
 //                        callback.onSuccess(videos);
@@ -63,5 +71,9 @@ class MemoryVideosRepository : IRepository {
 //                }
             }
         }
+    }
+
+    override fun getMovie(movieId: String, callback: Callback<Movie>) {
+        TODO("Not yet implemented")
     }
 }
