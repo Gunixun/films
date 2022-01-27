@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapters.AdapterItem
-import com.example.myapplication.adapters.VideoAdapterItem
-import com.example.myapplication.model.Video
+import com.example.myapplication.adapters.MovieAdapterItem
+import com.example.myapplication.model.MoviePreview
 
 
-class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val data: MutableList<AdapterItem> = mutableListOf()
     private var onClick: OnClick? = null
@@ -25,19 +25,21 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     interface OnClick {
-        fun onClick(video: Video)
-        fun onLongClick(video: Video)
+        fun onClick(moviePreview: MoviePreview)
+        fun onLongClick(moviePreview: MoviePreview)
     }
 
-    fun setData(videos: List<Video>) {
+    fun setData(moviePreviews: List<MoviePreview>) {
         val adapterItems: MutableList<AdapterItem> = mutableListOf()
-        for (video in videos) {
+        for (movie in moviePreviews) {
             adapterItems.add(
-                VideoAdapterItem(
-                    video,
-                    video.title,
-                    video.genres,
-                    video.rating
+                MovieAdapterItem(
+                    movie,
+                    movie.title,
+                    movie.original_title,
+                    movie.genres,
+                    movie.average,
+                    movie.release_year
                 )
             )
         }
@@ -47,32 +49,33 @@ class VideosAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
+    override fun getItemCount() = data.size
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return VideoViewHolder(
+        return MovieViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is VideoViewHolder) {
-            holder.bind(data[position] as VideoAdapterItem)
+        if (holder is MovieViewHolder) {
+            holder.bind(data[position] as MovieAdapterItem)
         }
     }
 
-    override fun getItemCount() = data.size
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    inner class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(videoItem: VideoAdapterItem) {
+        fun bind(movieItem: MovieAdapterItem) {
 //            itemView.findViewById<TextView>(R.id.image_view).text = video.title
             with(itemView) {
-                findViewById<TextView>(R.id.card_title).text = videoItem.title
-                findViewById<TextView>(R.id.genres_textview).text = videoItem.genres
-                findViewById<TextView>(R.id.rating_title).text = "Рейтинг: ${videoItem.rating}"
+                findViewById<TextView>(R.id.card_title).text = movieItem.title
+                findViewById<TextView>(R.id.card_subtitle).text =
+                    "${movieItem.release_year}/${movieItem.original_title}"
+                findViewById<TextView>(R.id.genres_textview).text =
+                    movieItem.genres.joinToString(separator = ", ")
+                findViewById<TextView>(R.id.rating_title).text = movieItem.average
                 setOnClickListener {
-                    if (getOnClick() != null) {
-                        getOnClick()?.onClick(videoItem.video)
-                    }
+                    getOnClick()?.onClick(movieItem.moviePreview)
                 }
             }
         }

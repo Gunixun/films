@@ -3,5 +3,7 @@ package com.example.myapplication.model
 
 interface IRepository {
 
-    fun getFilms(callback: Callback<List<Video>>)
+    fun getMovies(callback: Callback<List<MoviePreview>>)
+
+    fun getMovie(movieId: String, callback: Callback<Movie>)
 }
