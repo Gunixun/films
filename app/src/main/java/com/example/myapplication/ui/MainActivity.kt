@@ -1,5 +1,7 @@
 package com.example.myapplication.ui
 
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
@@ -10,6 +12,8 @@ import com.example.myapplication.R
 import com.example.myapplication.ui.list.MoviesListFragment
 
 class MainActivity : AppCompatActivity(), NavToolBar {
+
+    private val receiver = MainBroadcastReceiver()
 
     private val drawer: DrawerLayout by lazy {
         findViewById(R.id.drawer)
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity(), NavToolBar {
         if (savedInstanceState == null) {
             openFragment(MoviesListFragment(), false)
         }
+        registerReceiver(receiver, IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     private fun openFragment(fragment: Fragment, withTransaction: Boolean) {
@@ -51,4 +56,10 @@ class MainActivity : AppCompatActivity(), NavToolBar {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
     }
+
+    override fun onDestroy() {
+        unregisterReceiver(receiver)
+        super.onDestroy()
+    }
+
 }
