@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.model.MoviePreview
 import com.example.myapplication.showSnackBar
 import com.example.myapplication.ui.BaseFragment
-import com.example.myapplication.ui.details.MovieFragment
+import com.example.myapplication.ui.details.MovieDetailServiceFragment
 import com.example.myapplication.viewmodel.AppState
 
 class MoviesListFragment :
@@ -28,7 +28,7 @@ class MoviesListFragment :
                 val manager = activity?.supportFragmentManager
                 manager
                     ?.beginTransaction()
-                    ?.replace(R.id.container, MovieFragment.newInstance(moviePreview))
+                    ?.replace(R.id.container, MovieDetailServiceFragment.newInstance(moviePreview))
                     ?.addToBackStack("")
                     ?.commit()
             }
@@ -61,9 +61,9 @@ class MoviesListFragment :
 
             binding.swipeToRefresh.setOnRefreshListener { viewModel.getAllMovies() }
 
-            viewModel.getLiveData().observe(viewLifecycleOwner, { state ->
+            viewModel.getLiveData().observe(viewLifecycleOwner) { state ->
                 renderData(state)
-            })
+            }
             viewModel.getAllMovies()
 
         }

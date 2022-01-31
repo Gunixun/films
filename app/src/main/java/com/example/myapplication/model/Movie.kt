@@ -16,6 +16,7 @@ data class MoviePreview(
 ) : Parcelable
 
 
+@Parcelize
 data class Movie(
     val title: String,
     val original_title: String,
@@ -25,4 +26,4 @@ data class Movie(
     val icon_path: String,
     val release_year: String,
     val overview: String
-)
+) : Parcelable

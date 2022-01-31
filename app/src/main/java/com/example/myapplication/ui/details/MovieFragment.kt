@@ -19,12 +19,12 @@ class MovieFragment :
         const val ARG_PARAM = "video"
         var movie: MoviePreview? = null
 
-        fun newInstance(video: MoviePreview): MovieFragment {
-            val bundle = Bundle()
-            bundle.putParcelable(ARG_PARAM, video)
-            val fragment = MovieFragment()
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(movie: MoviePreview): MovieFragment {
+            return MovieFragment().also { fragment ->
+                fragment.arguments = Bundle().also { bundle ->
+                    bundle.putParcelable(ARG_PARAM, movie)
+                }
+            }
         }
     }
 
@@ -36,9 +36,9 @@ class MovieFragment :
             viewModel.getMovie(movie!!)
         }
 
-        viewModel.getLiveData().observe(viewLifecycleOwner, { state ->
+        viewModel.getLiveData().observe(viewLifecycleOwner) { state ->
             renderData(state)
-        })
+        }
 
     }
 
