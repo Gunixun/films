@@ -70,6 +70,7 @@ class MovieDetailServiceFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        context?.unregisterReceiver(loadResultsReceiver)
     }
 
     private val loadResultsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
