@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.model.*
 import com.example.myapplication.repository.IRepository
 import com.example.myapplication.repository.MoviesRepository
-import com.example.myapplication.utils.Callback
+import com.example.myapplication.utils.CallbackData
 
 class MovieViewModel(private val movie: MutableLiveData<AppStateMovie> = MutableLiveData()) :
     BaseViewModel() {
@@ -17,7 +17,7 @@ class MovieViewModel(private val movie: MutableLiveData<AppStateMovie> = Mutable
     fun getMovie(movieId: String) {
         movie.postValue(AppStateMovie.Loading)
 
-        repository.getMovie(movieId, object : Callback<Movie> {
+        repository.getMovie(movieId, object : CallbackData<Movie> {
             override fun onSuccess(result: Movie) {
                 movie.postValue(AppStateMovie.Success(result))
             }

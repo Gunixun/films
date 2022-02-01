@@ -4,20 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.model.*
 import com.example.myapplication.repository.IRepository
-import com.example.myapplication.repository.MoviesRepository
-import com.example.myapplication.utils.Callback
+import com.example.myapplication.repository.OkHttpsMoviesRepository
+import com.example.myapplication.utils.CallbackData
 
 class MoviesViewModel(private val movies: MutableLiveData<AppState> = MutableLiveData()) :
     BaseViewModel() {
 
-    private val repository: IRepository = MoviesRepository()
+    private val repository: IRepository = OkHttpsMoviesRepository()
 
     fun getLiveData(): LiveData<AppState> = movies
 
     fun getAllMovies() {
         movies.postValue(AppState.Loading)
 
-        repository.getMovies(object : Callback<List<MoviePreview>> {
+        repository.getMovies(object : CallbackData<List<MoviePreview>> {
             override fun onSuccess(result: List<MoviePreview>) {
                 movies.postValue(AppState.Success(result))
             }

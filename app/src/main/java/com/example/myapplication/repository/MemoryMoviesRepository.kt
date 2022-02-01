@@ -2,7 +2,7 @@ package com.example.myapplication.repository
 
 import android.os.Handler
 import android.os.Looper
-import com.example.myapplication.utils.Callback
+import com.example.myapplication.utils.CallbackData
 import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MoviePreview
 import java.util.*
@@ -54,7 +54,7 @@ class MemoryMoviesRepository : IRepository {
     }
 
 
-    override fun getMovies(callback: Callback<List<MoviePreview>>) {
+    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             try {
                 Thread.sleep(1000L)
@@ -76,7 +76,7 @@ class MemoryMoviesRepository : IRepository {
         }
     }
 
-    override fun getMovie(movieId: String, callback: Callback<Movie>) {
+    override fun getMovie(movieId: String, callback: CallbackData<Movie>) {
         TODO("Not yet implemented")
     }
 }

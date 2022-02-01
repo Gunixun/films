@@ -5,12 +5,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.myapplication.BuildConfig
-import com.example.myapplication.utils.Callback
 import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MovieDTO
 import com.example.myapplication.model.MoviePreview
 import com.example.myapplication.model.MoviePreviewDTO
+import com.example.myapplication.utils.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
@@ -38,11 +37,7 @@ class MoviesRepository : IRepository {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun parseGenresMovies() {
-        val uri =
-            URL(
-                "https://api.themoviedb.org/3/genre/movie/list" +
-                        "?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU"
-            )
+        val uri =URL("${MAIN_LINK}3/genre/movie/list?$API_KEY&$LANGUAGE")
         lateinit var urlConnection: HttpsURLConnection
         try {
             urlConnection = uri.openConnection() as HttpsURLConnection
@@ -67,12 +62,11 @@ class MoviesRepository : IRepository {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun getMovies(callback: Callback<List<MoviePreview>>) {
+    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             val uri =
                 URL(
-                    "https://api.themoviedb.org/3/movie/popular" +
-                            "?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU"
+                    "${MAIN_LINK}3/movie/popular?$API_KEY&$LANGUAGE"
                 )
             lateinit var urlConnection: HttpsURLConnection
             try {
@@ -127,12 +121,11 @@ class MoviesRepository : IRepository {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun getMovie(movieId: String, callback: Callback<Movie>) {
+    override fun getMovie(movieId: String, callback: CallbackData<Movie>) {
         executor.execute {
             val uri =
                 URL(
-                    "https://api.themoviedb.org/3/movie/$movieId" +
-                            "?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU"
+                    "${MAIN_LINK}3/movie/$movieId?$API_KEY&$LANGUAGE"
                 )
             lateinit var urlConnection: HttpsURLConnection
             try {

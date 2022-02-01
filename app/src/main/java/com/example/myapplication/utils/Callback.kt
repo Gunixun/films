@@ -1,6 +1,6 @@
 package com.example.myapplication.utils
 
-interface Callback<T> {
+interface CallbackData<T> {
 
     fun onSuccess(result: T)
 
