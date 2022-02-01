@@ -16,13 +16,13 @@ class MovieFragment :
     BaseFragment<MovieViewModel, FragmentMovieBinding>(FragmentMovieBinding::inflate) {
 
     companion object {
-        const val ARG_PARAM = "video"
-        var movie: MoviePreview? = null
+        const val ARG_PARAM = "Movie ID"
+        var movieId: String? = ""
 
         fun newInstance(movie: MoviePreview): MovieFragment {
             return MovieFragment().also { fragment ->
                 fragment.arguments = Bundle().also { bundle ->
-                    bundle.putParcelable(ARG_PARAM, movie)
+                    bundle.putString(ARG_PARAM, movie.id)
                 }
             }
         }
@@ -31,11 +31,10 @@ class MovieFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movie = arguments?.getParcelable<MoviePreview>(ARG_PARAM)
-        if (movie != null) {
-            viewModel.getMovie(movie!!)
+        movieId = arguments?.getString(ARG_PARAM)
+        if (movieId != null) {
+            viewModel.getMovie(movieId!!)
         }
-
         viewModel.getLiveData().observe(viewLifecycleOwner) { state ->
             renderData(state)
         }
@@ -65,7 +64,7 @@ class MovieFragment :
                 binding.root.showSnackBar(
                     text = state.error.toString(),
                     actionText = R.string.retry,
-                    { viewModel.getMovie(movie!!) }
+                    { viewModel.getMovie(movieId!!) }
                 )
             }
         }

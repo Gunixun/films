@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.adapters.AdapterItem
-import com.example.myapplication.adapters.MovieAdapterItem
+import com.example.myapplication.ui.adapters.AdapterItem
+import com.example.myapplication.ui.adapters.MovieAdapterItem
 import com.example.myapplication.model.MoviePreview
 
 

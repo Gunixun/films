@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters
+package com.example.myapplication.ui.adapters
 
 import com.example.myapplication.model.MoviePreview
 

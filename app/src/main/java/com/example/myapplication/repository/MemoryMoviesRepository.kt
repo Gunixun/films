@@ -1,7 +1,10 @@
-package com.example.myapplication.model
+package com.example.myapplication.repository
 
 import android.os.Handler
 import android.os.Looper
+import com.example.myapplication.utils.Callback
+import com.example.myapplication.model.Movie
+import com.example.myapplication.model.MoviePreview
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

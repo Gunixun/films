@@ -1,4 +1,4 @@
-package com.example.myapplication.model
+package com.example.myapplication.repository
 
 import android.os.Build
 import android.os.Handler
@@ -6,6 +6,11 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.myapplication.BuildConfig
+import com.example.myapplication.utils.Callback
+import com.example.myapplication.model.Movie
+import com.example.myapplication.model.MovieDTO
+import com.example.myapplication.model.MoviePreview
+import com.example.myapplication.model.MoviePreviewDTO
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
@@ -22,33 +27,6 @@ import javax.net.ssl.HttpsURLConnection
 private fun getLines(reader: BufferedReader): String {
     return reader.lines().collect(Collectors.joining("\n"))
 }
-
-data class MoviePreviewDTO(
-    val title: String,
-    val original_title: String,
-    val vote_average: Float,
-    val genre_ids: List<Int>,
-    val id: String,
-    val poster_path: String,
-    val release_date: String
-)
-
-
-data class MovieDTO(
-    val title: String,
-    val original_title: String,
-    val vote_average: Float,
-    val genres: List<GenreDTO>,
-    val id: String,
-    val poster_path: String,
-    val release_date: String,
-    val overview: String
-)
-
-data class GenreDTO(
-    val id: Int,
-    val name: String
-)
 
 
 class MoviesRepository : IRepository {
