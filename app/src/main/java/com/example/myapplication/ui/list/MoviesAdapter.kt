@@ -4,13 +4,18 @@ import DiffUtilsAdapterItems
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.ui.adapters.AdapterItem
 import com.example.myapplication.ui.adapters.MovieAdapterItem
 import com.example.myapplication.model.MoviePreview
+import com.example.myapplication.utils.DETAILS_POSTER_SIZE
+import com.example.myapplication.utils.MAIN_POSTER_LINK
+import com.example.myapplication.utils.POSTER_SIZE
 
 
 class MoviesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -39,6 +44,7 @@ class MoviesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     movie.original_title,
                     movie.genres,
                     movie.average,
+                    movie.icon_path,
                     movie.release_year
                 )
             )
@@ -68,6 +74,11 @@ class MoviesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(movieItem: MovieAdapterItem) {
 //            itemView.findViewById<TextView>(R.id.image_view).text = video.title
             with(itemView) {
+
+                Glide
+                    .with(itemView)
+                    .load("$MAIN_POSTER_LINK$POSTER_SIZE${movieItem.icon_path}")
+                    .into(findViewById<ImageView>(R.id.image_view));
                 findViewById<TextView>(R.id.card_title).text = movieItem.title
                 findViewById<TextView>(R.id.card_subtitle).text =
                     "${movieItem.release_year}/${movieItem.original_title}"

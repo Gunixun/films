@@ -3,11 +3,14 @@ package com.example.myapplication.ui.details
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMovieBinding
 import com.example.myapplication.model.MoviePreview
 import com.example.myapplication.showSnackBar
 import com.example.myapplication.ui.BaseFragment
+import com.example.myapplication.utils.DETAILS_POSTER_SIZE
+import com.example.myapplication.utils.MAIN_POSTER_LINK
 import com.example.myapplication.viewmodel.AppStateMovie
 import com.example.myapplication.viewmodel.MovieViewModel
 
@@ -46,6 +49,10 @@ class MovieFragment :
         when (state) {
             is AppStateMovie.Success -> {
                 with(state.movie) {
+                    Glide
+                        .with(requireContext())
+                        .load("$MAIN_POSTER_LINK$DETAILS_POSTER_SIZE${state.movie.icon_path}")
+                        .into(binding.imageView);
                     binding.titleTextview.text = title
                     binding.originTitleTextview.text = original_title
                     binding.averageTextview.text = "Год: $release_year\nРейтинг: $average"
