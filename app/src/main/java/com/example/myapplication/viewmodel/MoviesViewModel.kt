@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.model.*
 import com.example.myapplication.repository.IRepository
 import com.example.myapplication.repository.OkHttpsMoviesRepository
+import com.example.myapplication.repository.RetrofitMoviesRepository
 import com.example.myapplication.utils.CallbackData
 
 class MoviesViewModel(private val movies: MutableLiveData<AppState> = MutableLiveData()) :
     BaseViewModel() {
 
-    private val repository: IRepository = OkHttpsMoviesRepository()
+    private val repository: IRepository = RetrofitMoviesRepository()
 
     fun getLiveData(): LiveData<AppState> = movies
 

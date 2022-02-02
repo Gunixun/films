@@ -2,13 +2,9 @@ package com.example.myapplication.repository
 
 import android.os.Handler
 import android.os.Looper
-import com.example.myapplication.model.Movie
-import com.example.myapplication.model.MovieDTO
-import com.example.myapplication.model.MoviePreview
-import com.example.myapplication.model.MoviePreviewDTO
+import com.example.myapplication.model.*
 import com.example.myapplication.utils.*
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -53,18 +49,13 @@ class OkHttpsMoviesRepository : IRepository {
                 val serverResponse: String? = response.body()?.string()
                 // Синхронизируем поток с потоком UI
                 if (response.isSuccessful && serverResponse != null) {
-                    val json = JSONObject(serverResponse)
-
-                    val typeToken = object : TypeToken<List<MoviePreviewDTO>>() {}.type
-                    val moviesDTO =
-                        Gson().fromJson<List<MoviePreviewDTO>>(json.getString("results"), typeToken)
-
+                    val moviesDTO: MoviesDTO = Gson().fromJson(serverResponse, MoviesDTO::class.java)
                     if (jenresMovies.isEmpty()) {
                         parseGenresMovies()
                     }
 
                     val moviePreviews: MutableList<MoviePreview> = mutableListOf()
-                    for (movieDTO in moviesDTO) {
+                    for (movieDTO in moviesDTO.results) {
                         val genres: MutableList<String> = mutableListOf()
                         for (genre in movieDTO.genre_ids) {
                             jenresMovies.get(genre)?.let { genres.add(it) }
@@ -119,13 +110,13 @@ class OkHttpsMoviesRepository : IRepository {
                     val movieDTO: MovieDTO =
                         Gson().fromJson(serverResponse, MovieDTO::class.java)
 
+                    if (jenresMovies.isEmpty()) {
+                        parseGenresMovies()
+                    }
+
                     val genres: MutableList<String> = mutableListOf()
                     for (genre in movieDTO.genres) {
                         jenresMovies.get(genre.id)?.let { genres.add(it) }
-                    }
-
-                    if (jenresMovies.isEmpty()) {
-                        parseGenresMovies()
                     }
 
                     handler.post {
