@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters
+package com.example.myapplication.ui.adapters
 
 import com.example.myapplication.model.MoviePreview
 
@@ -9,6 +9,7 @@ class MovieAdapterItem(
     val original_title: String,
     val genres: List<String>,
     val average: String,
+    val icon_path: String,
     val release_year: String
 ) :
     AdapterItem(moviePreview.id) {

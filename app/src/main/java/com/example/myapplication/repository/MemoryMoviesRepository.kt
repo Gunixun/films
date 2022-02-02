@@ -1,7 +1,11 @@
-package com.example.myapplication.model
+package com.example.myapplication.repository
 
 import android.os.Handler
 import android.os.Looper
+import com.example.myapplication.utils.CallbackData
+import com.example.myapplication.model.Movie
+import com.example.myapplication.model.MoviePreview
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -51,7 +55,7 @@ class MemoryMoviesRepository : IRepository {
     }
 
 
-    override fun getMovies(callback: Callback<List<MoviePreview>>) {
+    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             try {
                 Thread.sleep(1000L)
@@ -73,7 +77,41 @@ class MemoryMoviesRepository : IRepository {
         }
     }
 
-    override fun getMovie(movieId: String, callback: Callback<Movie>) {
-        TODO("Not yet implemented")
+    override fun getMovie(movieId: String, callback: CallbackData<Movie>) {
+        executor.execute {
+            try {
+                Thread.sleep(1000L)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+            for (movie in videos) {
+                if (movie.id == movieId) {
+                    handler.post { callback.onSuccess(
+                        Movie(
+                            title = movie.title,
+                            original_title = movie.original_title,
+                            average = movie.average,
+                            genres = movie.genres,
+                            id = movie.id,
+                            icon_path = movie.icon_path,
+                            release_year = movie.release_year,
+                            overview = "Нет описания",
+                        )
+                    ) }
+                    break
+                }
+            }
+            handler.post { callback.onError(IOException()) }
+
+//                if (Random().nextBoolean()) {
+//                    if (Random().nextBoolean()) {
+//                        callback.onSuccess(videos);
+//                    } else {
+//                        callback.onSuccess(mutableListOf());
+//                    }
+//                } else {
+//                    callback.onError(IOException());
+//                }
+        }
     }
 }

@@ -1,5 +1,5 @@
 import androidx.recyclerview.widget.DiffUtil
-import com.example.myapplication.adapters.AdapterItem
+import com.example.myapplication.ui.adapters.AdapterItem
 
 
 class DiffUtilsAdapterItems(
