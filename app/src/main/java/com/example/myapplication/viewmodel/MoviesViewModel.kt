@@ -15,7 +15,7 @@ class MoviesViewModel(private val movies: MutableLiveData<AppState> = MutableLiv
 
     fun getLiveData(): LiveData<AppState> = movies
 
-    fun getAllMovies() {
+    fun getPopularMovies(adult: Boolean) {
         movies.postValue(AppState.Loading)
 
         repository.getMovies(object : CallbackData<List<MoviePreview>> {

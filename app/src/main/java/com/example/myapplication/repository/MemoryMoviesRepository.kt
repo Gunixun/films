@@ -55,7 +55,7 @@ class MemoryMoviesRepository : IRepository {
     }
 
 
-    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             try {
                 Thread.sleep(1000L)

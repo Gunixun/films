@@ -4,6 +4,7 @@ import com.example.myapplication.BuildConfig
 import com.example.myapplication.model.*
 import com.example.myapplication.utils.CallbackData
 import com.example.myapplication.utils.MAIN_LINK
+import com.example.myapplication.utils.convertDTO
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +41,7 @@ class RetrofitMoviesRepository : IRepository {
             })
     }
 
-    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>) {
         if (jenresMovies.isEmpty()) {
             getGenresMovies()
         }
@@ -56,25 +57,7 @@ class RetrofitMoviesRepository : IRepository {
                 override fun onResponse(call: Call<MoviesDTO>, response: Response<MoviesDTO>) {
                     val moviesDTO: MoviesDTO? = response.body()
                     if (moviesDTO != null) {
-                        val moviePreviews: MutableList<MoviePreview> = mutableListOf()
-                        for (movieDTO in moviesDTO.results) {
-                            val genres: MutableList<String> = mutableListOf()
-                            for (genre in movieDTO.genre_ids) {
-                                jenresMovies.get(genre)?.let { genres.add(it) }
-                            }
-                            moviePreviews.add(
-                                MoviePreview(
-                                    title = movieDTO.title,
-                                    original_title = movieDTO.original_title,
-                                    average = movieDTO.vote_average.toString(),
-                                    genres = genres,
-                                    id = movieDTO.id,
-                                    icon_path = movieDTO.poster_path,
-                                    release_year = movieDTO.release_date.slice(0..3)
-                                )
-                            )
-                        }
-                        callback.onSuccess(moviePreviews)
+                        callback.onSuccess(convertDTO(adult, moviesDTO, jenresMovies))
                     } else {
                         callback.onError(Throwable())
                     }

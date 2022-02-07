@@ -7,7 +7,7 @@ import com.example.myapplication.model.MoviePreview
 
 interface IRepository {
 
-    fun getMovies(callback: CallbackData<List<MoviePreview>>)
+    fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>)
 
     fun getMovie(movieId: String, callback: CallbackData<Movie>)
 }

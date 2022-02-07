@@ -8,7 +8,7 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMovieBinding
 import com.example.myapplication.model.MoviePreview
 import com.example.myapplication.showSnackBar
-import com.example.myapplication.ui.BaseFragment
+import com.example.myapplication.ui.BaseFragmentWithModel
 import com.example.myapplication.utils.DETAILS_POSTER_SIZE
 import com.example.myapplication.utils.MAIN_POSTER_LINK
 import com.example.myapplication.viewmodel.AppStateMovie
@@ -16,7 +16,7 @@ import com.example.myapplication.viewmodel.MovieViewModel
 
 
 class MovieFragment :
-    BaseFragment<MovieViewModel, FragmentMovieBinding>(FragmentMovieBinding::inflate) {
+    BaseFragmentWithModel<MovieViewModel, FragmentMovieBinding>(FragmentMovieBinding::inflate) {
 
     companion object {
         const val ARG_PARAM = "Movie ID"

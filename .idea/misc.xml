@@ -7,8 +7,10 @@
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26145833333333335" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/drawable/ic_menu_24.xml" value="0.26145833333333335" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_liked_movies.xml" value="0.17249240121580547" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_movie.xml" value="0.25" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_movies_list.xml" value="0.1099290780141844" />
+        <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_settings.xml" value="0.21" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_video.xml" value="0.2" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/fragment_videos_list.xml" value="0.25" />
         <entry key="..\:/android/kotlin/MyApplication/app/src/main/res/layout/item_note.xml" value="0.33" />
