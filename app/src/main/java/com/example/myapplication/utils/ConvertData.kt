@@ -29,3 +29,14 @@ fun convertDTO(adult: Boolean, moviesDTO: MoviesDTO, jenresMovies: MutableMap<In
     }
     return moviePreviews
 }
+
+
+fun getCatalog(movieType: TypeMovies): String {
+     if (movieType == TypeMovies.TOP_RATED) {
+         return "top_rated"
+    } else if (movieType == TypeMovies.POPULAR){
+         return "popular"
+     } else {
+         return "now_playing"
+     }
+}

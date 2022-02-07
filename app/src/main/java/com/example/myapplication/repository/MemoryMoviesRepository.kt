@@ -5,6 +5,7 @@ import android.os.Looper
 import com.example.myapplication.utils.CallbackData
 import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MoviePreview
+import com.example.myapplication.utils.TypeMovies
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executor
@@ -55,7 +56,7 @@ class MemoryMoviesRepository : IRepository {
     }
 
 
-    override fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             try {
                 Thread.sleep(1000L)

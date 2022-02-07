@@ -35,7 +35,7 @@ class OkHttpsMoviesRepository : IRepository {
     }
 
 
-    override fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
         val client = OkHttpClient() // Клиент
         val builder: Request.Builder = Request.Builder() // Создаём строителя запроса
         builder.url("${MAIN_LINK}3/movie/popular?$API_KEY&$LANGUAGE") // Формируем URL

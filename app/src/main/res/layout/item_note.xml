@@ -42,7 +42,7 @@
             android:ems="15"
             android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@+id/genres_textview"
-            app:layout_constraintEnd_toStartOf="@+id/rating_title"
+            app:layout_constraintEnd_toStartOf="@+id/image_rating"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/card_title"
@@ -71,6 +71,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.508"
             tools:text="6.4" />
+
+        <ImageView
+            android:id="@+id/image_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_star_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rating_title"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/rating_description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

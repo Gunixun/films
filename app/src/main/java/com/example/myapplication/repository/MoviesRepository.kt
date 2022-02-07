@@ -54,7 +54,7 @@ class MoviesRepository : IRepository {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             val uri = URL("${MAIN_LINK}3/movie/popular?$API_KEY&$LANGUAGE")
             lateinit var urlConnection: HttpsURLConnection

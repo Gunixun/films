@@ -2,9 +2,7 @@ package com.example.myapplication.repository
 
 import com.example.myapplication.BuildConfig
 import com.example.myapplication.model.*
-import com.example.myapplication.utils.CallbackData
-import com.example.myapplication.utils.MAIN_LINK
-import com.example.myapplication.utils.convertDTO
+import com.example.myapplication.utils.*
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,7 +39,7 @@ class RetrofitMoviesRepository : IRepository {
             })
     }
 
-    override fun getMovies(adult: Boolean, callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
         if (jenresMovies.isEmpty()) {
             getGenresMovies()
         }
@@ -51,8 +49,8 @@ class RetrofitMoviesRepository : IRepository {
             .addConverterFactory(
                 GsonConverterFactory.create(GsonBuilder().create())
             )
-            .build().create(PopularMoviesApi::class.java)
-        retrofit.getPopularMovies(BuildConfig.MOVIE_API_KEY)
+            .build().create(MoviesApi::class.java)
+        retrofit.getMovies(getCatalog(movieType), BuildConfig.MOVIE_API_KEY)
             .enqueue(object : Callback<MoviesDTO> {
                 override fun onResponse(call: Call<MoviesDTO>, response: Response<MoviesDTO>) {
                     val moviesDTO: MoviesDTO? = response.body()

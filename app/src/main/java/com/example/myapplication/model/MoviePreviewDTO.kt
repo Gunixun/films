@@ -7,5 +7,6 @@ data class MoviePreviewDTO(
     val genre_ids: List<Int>,
     val id: String,
     val poster_path: String,
-    val release_date: String
+    val release_date: String,
+    val adult: Boolean
 )
