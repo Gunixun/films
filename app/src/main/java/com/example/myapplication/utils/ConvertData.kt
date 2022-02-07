@@ -1,7 +1,7 @@
 package com.example.myapplication.utils
 
 import com.example.myapplication.model.MoviePreview
-import com.example.myapplication.model.MoviesDTO
+import com.example.myapplication.model.dto.MoviesDTO
 
 fun convertDTO(adult: Boolean, moviesDTO: MoviesDTO, jenresMovies: MutableMap<Int, String>):
         MutableList<MoviePreview>{

@@ -11,7 +11,7 @@
         android:title="@string/now_playing" />
     <item
         android:id="@+id/action_bookmarks"
-        android:title="@string/history" />
+        android:title="@string/bookmarks" />
     <item
         android:id="@+id/action_history"
         android:title="@string/history" />

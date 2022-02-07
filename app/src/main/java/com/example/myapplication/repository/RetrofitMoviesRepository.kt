@@ -2,6 +2,9 @@ package com.example.myapplication.repository
 
 import com.example.myapplication.BuildConfig
 import com.example.myapplication.model.*
+import com.example.myapplication.model.dto.GenresDTO
+import com.example.myapplication.model.dto.MovieDTO
+import com.example.myapplication.model.dto.MoviesDTO
 import com.example.myapplication.utils.*
 import com.google.gson.GsonBuilder
 import retrofit2.Call

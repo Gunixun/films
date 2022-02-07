@@ -3,6 +3,8 @@ package com.example.myapplication.repository
 import android.os.Handler
 import android.os.Looper
 import com.example.myapplication.model.*
+import com.example.myapplication.model.dto.MovieDTO
+import com.example.myapplication.model.dto.MoviesDTO
 import com.example.myapplication.utils.*
 import com.google.gson.Gson
 import okhttp3.Call

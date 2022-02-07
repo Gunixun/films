@@ -1,6 +1,6 @@
 package com.example.myapplication.repository
 
-import com.example.myapplication.model.GenresDTO
+import com.example.myapplication.model.dto.GenresDTO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

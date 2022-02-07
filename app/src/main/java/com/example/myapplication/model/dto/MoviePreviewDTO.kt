@@ -1,4 +1,4 @@
-package com.example.myapplication.model
+package com.example.myapplication.model.dto
 
 data class MoviePreviewDTO(
     val title: String,

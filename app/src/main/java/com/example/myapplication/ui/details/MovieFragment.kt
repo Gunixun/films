@@ -1,11 +1,13 @@
 package com.example.myapplication.ui.details
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMovieBinding
+import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MoviePreview
 import com.example.myapplication.showSnackBar
 import com.example.myapplication.ui.BaseFragmentWithModel
@@ -48,20 +50,7 @@ class MovieFragment :
         binding.progress.isVisible = false
         when (state) {
             is AppStateMovie.Success -> {
-                with(state.movie) {
-                    Glide
-                        .with(requireContext())
-                        .load("$MAIN_POSTER_LINK$DETAILS_POSTER_SIZE${state.movie.icon_path}")
-                        .into(binding.imageView);
-                    binding.titleTextview.text = title
-                    binding.originTitleTextview.text = original_title
-                    binding.averageTextview.text = "Год: $release_year\nРейтинг: $average"
-                    binding.shortInfoTextview.text = """
-Жанры: ${genres.joinToString(separator = ", ")}
-Страна:
-"""
-                    binding.overviewTextview.text = overview
-                }
+                setMovies(state.movie)
 
             }
             is AppStateMovie.Loading -> {
@@ -74,6 +63,25 @@ class MovieFragment :
                     { viewModel.getMovie(movieId!!) }
                 )
             }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setMovies(movie: Movie){
+        viewModel.saveHistory(movie)
+        with(binding) {
+            com.bumptech.glide.Glide
+                .with(requireContext())
+                .load("${MAIN_POSTER_LINK}${DETAILS_POSTER_SIZE}${movie.icon_path}")
+                .into(imageView);
+            titleTextview.text = movie.title
+            originTitleTextview.text = movie.original_title
+            averageTextview.text = "Год: ${movie.release_year}\nРейтинг: ${movie.average}"
+            shortInfoTextview.text = """
+Жанры: ${movie.genres.joinToString(separator = ", ")}
+Страна:
+"""
+            binding.overviewTextview.text = movie.overview
         }
     }
 }

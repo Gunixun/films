@@ -6,6 +6,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.myapplication.model.*
+import com.example.myapplication.model.dto.GenresDTO
+import com.example.myapplication.model.dto.MovieDTO
+import com.example.myapplication.model.dto.MoviesDTO
 import com.example.myapplication.utils.*
 import com.google.gson.Gson
 import java.io.BufferedReader
