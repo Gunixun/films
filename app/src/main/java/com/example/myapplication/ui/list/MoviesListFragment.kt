@@ -81,12 +81,12 @@ class MoviesListFragment :
                     else -> false
                 }
             }
-            videosList.layoutManager = LinearLayoutManager(
+            moviesList.layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            videosList.adapter = adapter
+            moviesList.adapter = adapter
 
             binding.swipeToRefresh.setOnRefreshListener { viewModel.getMovies(adult, movieType!!) }
 

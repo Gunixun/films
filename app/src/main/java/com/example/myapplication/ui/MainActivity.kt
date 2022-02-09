@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
+import com.example.myapplication.ui.contacts.ContactsFragment
 import com.example.myapplication.ui.list.MoviesListFragment
 import com.example.myapplication.utils.TypeMovies
 import com.google.android.material.navigation.NavigationView
@@ -56,6 +57,11 @@ class MainActivity : AppCompatActivity(), NavToolBar {
                 }
                 R.id.action_history -> {
                     openFragment(MoviesListFragment.newInstance(TypeMovies.HISTORY), false)
+                    drawer.closeDrawer(GravityCompat.START)
+                    return@setNavigationItemSelectedListener true
+                }
+                R.id.action_contacts -> {
+                    openFragment(ContactsFragment(), false)
                     drawer.closeDrawer(GravityCompat.START)
                     return@setNavigationItemSelectedListener true
                 }
