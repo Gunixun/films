@@ -13,7 +13,6 @@ import com.example.myapplication.R
 import com.example.myapplication.ui.adapters.AdapterItem
 import com.example.myapplication.ui.adapters.MovieAdapterItem
 import com.example.myapplication.model.MoviePreview
-import com.example.myapplication.utils.DETAILS_POSTER_SIZE
 import com.example.myapplication.utils.MAIN_POSTER_LINK
 import com.example.myapplication.utils.POSTER_SIZE
 
@@ -59,7 +58,7 @@ class MoviesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MovieViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         )
     }
 
