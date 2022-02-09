@@ -11,7 +11,7 @@ class MovieViewModel(private val movie: MutableLiveData<AppStateMovie> = Mutable
     BaseViewModel() {
 
     private val repository: IRepository = RetrofitMoviesRepository()
-    private val historyRepository: IHistoryRepository = HistoryRepository(App.getHistoryDao())
+    private val historyRepository: IDBRepository = HistoryRepository(App.getHistoryDao())
 
     fun getLiveData(): LiveData<AppStateMovie> = movie
 
