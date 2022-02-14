@@ -1,4 +1,4 @@
-package com.example.myapplication.model.dto
+package com.example.myapplication.repository.dto
 
 data class GenreDTO(
     val id: Int,

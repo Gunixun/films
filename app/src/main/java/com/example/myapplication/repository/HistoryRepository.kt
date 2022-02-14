@@ -4,8 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MoviePreview
-import com.example.myapplication.model.db.HistoryDao
-import com.example.myapplication.model.db.HistoryEntity
+import com.example.myapplication.repository.db.HistoryDao
+import com.example.myapplication.repository.db.HistoryEntity
 import com.example.myapplication.utils.CallbackData
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

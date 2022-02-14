@@ -1,6 +1,6 @@
-package com.example.myapplication.repository
+package com.example.myapplication.repository.api
 
-import com.example.myapplication.model.dto.MovieDTO
+import com.example.myapplication.repository.dto.MovieDTO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,6 +11,7 @@ interface MovieApi {
     fun getMovie(
         @Path("movie_id") movieId: String,
         @Query("api_key") api_key: String,
-        @Query("language") language: String = "ru-RU"
+        @Query("language") language: String = "ru-RU",
+        @Query("append_to_response") credits: String = "credits"
     ): Call<MovieDTO>
 }

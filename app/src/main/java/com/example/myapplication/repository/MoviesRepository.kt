@@ -6,9 +6,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.myapplication.model.*
-import com.example.myapplication.model.dto.GenresDTO
-import com.example.myapplication.model.dto.MovieDTO
-import com.example.myapplication.model.dto.MoviesDTO
+import com.example.myapplication.repository.dto.GenresDTO
+import com.example.myapplication.repository.dto.MovieDTO
+import com.example.myapplication.repository.dto.MoviesDTO
 import com.example.myapplication.utils.*
 import com.google.gson.Gson
 import java.io.BufferedReader
@@ -25,7 +25,6 @@ class MoviesRepository : IRepository {
     private val executor: Executor = Executors.newSingleThreadExecutor()
     private val handler = Handler(Looper.getMainLooper())
     private var jenresMovies: MutableMap<Int, String> = mutableMapOf()
-    private var jenresTV: Map<Int, String>? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getLines(reader: BufferedReader): String {
@@ -42,7 +41,8 @@ class MoviesRepository : IRepository {
             urlConnection.readTimeout = 10000
             val bufferedReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
 
-            val genresDTO: GenresDTO = Gson().fromJson(getLines(bufferedReader), GenresDTO::class.java)
+            val genresDTO: GenresDTO =
+                Gson().fromJson(getLines(bufferedReader), GenresDTO::class.java)
             for (genreDTO in genresDTO.genres) {
                 jenresMovies[genreDTO.id] = genreDTO.name
             }
@@ -57,9 +57,13 @@ class MoviesRepository : IRepository {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(
+        adult: Boolean,
+        movieType: TypeMovies,
+        callback: CallbackData<List<MoviePreview>>
+    ) {
         executor.execute {
-            val uri = URL("${MAIN_LINK}3/movie/popular?$API_KEY&$LANGUAGE")
+            val uri = URL("${MAIN_LINK}3/movie/popular?$API_KEY&$LANGUAGE&append_to_response=credits")
             lateinit var urlConnection: HttpsURLConnection
             try {
                 urlConnection = uri.openConnection() as HttpsURLConnection
@@ -67,14 +71,15 @@ class MoviesRepository : IRepository {
                 urlConnection.readTimeout = 10000
                 val bufferedReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
 
-                val moviesDTO: MoviesDTO = Gson().fromJson(getLines(bufferedReader), MoviesDTO::class.java)
+                val moviesDTO: MoviesDTO =
+                    Gson().fromJson(getLines(bufferedReader), MoviesDTO::class.java)
 
                 if (jenresMovies.isEmpty()) {
                     parseGenresMovies()
                 }
 
                 handler.post {
-                    callback.onSuccess(convertDTO(adult, moviesDTO, jenresMovies))
+                    callback.onSuccess(convertMoviesDTO(adult, moviesDTO, jenresMovies))
                 }
             } catch (e: Exception) {
                 Log.e("", "Fail connection", e)
@@ -99,32 +104,11 @@ class MoviesRepository : IRepository {
                 urlConnection.readTimeout = 10000
                 val bufferedReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
 
-                if (jenresMovies.isEmpty()) {
-                    parseGenresMovies()
-                }
-
                 val movieDTO: MovieDTO =
                     Gson().fromJson(getLines(bufferedReader), MovieDTO::class.java)
+                val movie = convertMovieDTO(movieDTO)
 
-                val genres: MutableList<String> = mutableListOf()
-                for (genre in movieDTO.genres) {
-                    jenresMovies.get(genre.id)?.let { genres.add(it) }
-                }
-
-                handler.post {
-                    callback.onSuccess(
-                        Movie(
-                            title = movieDTO.title,
-                            original_title = movieDTO.original_title,
-                            average = movieDTO.vote_average.toString(),
-                            genres = genres,
-                            id = movieDTO.id,
-                            icon_path = movieDTO.poster_path,
-                            release_year = movieDTO.release_date.slice(0..3),
-                            overview = movieDTO.overview,
-                        )
-                    )
-                }
+                handler.post { callback.onSuccess(movie) }
             } catch (e: Exception) {
                 Log.e("", "Fail connection", e)
                 e.printStackTrace()

@@ -19,4 +19,6 @@
     <string name="video_image_description">Картинка фильма</string>
     <string name="settings_adult">Фильмы для взрослых</string>
     <string name="rating_description">Звездочка рейтинга</string>
+    <string name="labeled_actors">Актеры:</string>
+    <string name="labeled_overview">Сюжет:</string>
 </resources>

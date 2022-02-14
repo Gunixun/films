@@ -4,8 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MoviePreview
-import com.example.myapplication.model.db.BookmarksDao
-import com.example.myapplication.model.db.BookmarksEntity
+import com.example.myapplication.repository.db.BookmarksDao
+import com.example.myapplication.repository.db.BookmarksEntity
 import com.example.myapplication.utils.CallbackData
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
