@@ -1,4 +1,4 @@
-package com.example.myapplication.model.dto
+package com.example.myapplication.repository.dto
 
 data class MovieDTO(
     val title: String,
@@ -8,5 +8,6 @@ data class MovieDTO(
     val id: String,
     val poster_path: String,
     val release_date: String,
-    val overview: String
+    val overview: String,
+    val credits: ActorsPreviewDTO,
 )

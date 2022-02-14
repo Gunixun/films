@@ -1,4 +1,4 @@
-package com.example.myapplication.model.db
+package com.example.myapplication.repository.db
 
 import androidx.room.*
 

@@ -2,9 +2,12 @@ package com.example.myapplication.repository
 
 import com.example.myapplication.BuildConfig
 import com.example.myapplication.model.*
-import com.example.myapplication.model.dto.GenresDTO
-import com.example.myapplication.model.dto.MovieDTO
-import com.example.myapplication.model.dto.MoviesDTO
+import com.example.myapplication.repository.api.GenresApi
+import com.example.myapplication.repository.api.MovieApi
+import com.example.myapplication.repository.api.MoviesApi
+import com.example.myapplication.repository.dto.GenresDTO
+import com.example.myapplication.repository.dto.MovieDTO
+import com.example.myapplication.repository.dto.MoviesDTO
 import com.example.myapplication.utils.*
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -58,7 +61,7 @@ class RetrofitMoviesRepository : IRepository {
                 override fun onResponse(call: Call<MoviesDTO>, response: Response<MoviesDTO>) {
                     val moviesDTO: MoviesDTO? = response.body()
                     if (moviesDTO != null) {
-                        callback.onSuccess(convertDTO(adult, moviesDTO, jenresMovies))
+                        callback.onSuccess(convertMoviesDTO(adult, moviesDTO, jenresMovies))
                     } else {
                         callback.onError(Throwable())
                     }
@@ -72,10 +75,6 @@ class RetrofitMoviesRepository : IRepository {
     }
 
     override fun getMovie(movieId: String, callback: CallbackData<Movie>) {
-        if (jenresMovies.isEmpty()) {
-            getGenresMovies()
-        }
-
         val retrofit = Retrofit.Builder()
             .baseUrl(MAIN_LINK)
             .addConverterFactory(
@@ -87,22 +86,7 @@ class RetrofitMoviesRepository : IRepository {
                 override fun onResponse(call: Call<MovieDTO>, response: Response<MovieDTO>) {
                     val movieDTO: MovieDTO? = response.body()
                     if (movieDTO != null) {
-                        val genres: MutableList<String> = mutableListOf()
-                        for (genre in movieDTO.genres) {
-                            jenresMovies.get(genre.id)?.let { genres.add(it) }
-                        }
-                        callback.onSuccess(
-                            Movie(
-                                title = movieDTO.title,
-                                original_title = movieDTO.original_title,
-                                average = movieDTO.vote_average.toString(),
-                                genres = genres,
-                                id = movieDTO.id,
-                                icon_path = movieDTO.poster_path,
-                                release_year = movieDTO.release_date.slice(0..3),
-                                overview = movieDTO.overview,
-                            )
-                        )
+                        callback.onSuccess(convertMovieDTO(movieDTO))
                     } else {
                         callback.onError(Throwable())
                     }

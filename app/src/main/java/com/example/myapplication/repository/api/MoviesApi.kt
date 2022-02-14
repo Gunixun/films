@@ -1,6 +1,6 @@
-package com.example.myapplication.repository
+package com.example.myapplication.repository.api
 
-import com.example.myapplication.model.dto.MoviesDTO
+import com.example.myapplication.repository.dto.MoviesDTO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

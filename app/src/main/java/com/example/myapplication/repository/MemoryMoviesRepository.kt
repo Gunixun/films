@@ -97,6 +97,7 @@ class MemoryMoviesRepository : IRepository {
                             icon_path = movie.icon_path,
                             release_year = movie.release_year,
                             overview = "Нет описания",
+                            actors = mutableListOf()
                         )
                     ) }
                     break

@@ -2,10 +2,10 @@ package com.example.myapplication.ui
 
 import android.app.Application
 import androidx.room.Room
-import com.example.myapplication.model.db.BookmarksDao
-import com.example.myapplication.model.db.BookmarksDataBase
-import com.example.myapplication.model.db.HistoryDao
-import com.example.myapplication.model.db.HistoryDataBase
+import com.example.myapplication.repository.db.BookmarksDao
+import com.example.myapplication.repository.db.BookmarksDataBase
+import com.example.myapplication.repository.db.HistoryDao
+import com.example.myapplication.repository.db.HistoryDataBase
 
 
 class App: Application() {

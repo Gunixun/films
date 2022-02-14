@@ -8,5 +8,6 @@ data class Movie(
     val id: String,
     val icon_path: String,
     val release_year: String,
-    val overview: String
+    val overview: String,
+    val actors: List<ActorPreview>
 )
