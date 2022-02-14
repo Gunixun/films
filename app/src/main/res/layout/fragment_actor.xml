@@ -25,7 +25,6 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/purple_200"
                 app:navigationIcon="@drawable/ic_menu_24">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,6 +36,7 @@
                         android:id="@+id/name_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         tools:text="Название видео" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -61,6 +61,7 @@
             android:layout_marginStart="5dp"
             app:layout_constraintBottom_toTopOf="@+id/map"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/appbar"
             tools:background="@color/purple_500"
@@ -71,7 +72,6 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            app:layout_constraintBottom_toTopOf="@+id/biography_textview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/birthday_textview" />
@@ -79,8 +79,7 @@
         <TextView
             android:id="@+id/biography_textview"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_view"

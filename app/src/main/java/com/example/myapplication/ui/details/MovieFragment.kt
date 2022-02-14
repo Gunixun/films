@@ -13,6 +13,7 @@ import com.example.myapplication.model.Movie
 import com.example.myapplication.model.MoviePreview
 import com.example.myapplication.showSnackBar
 import com.example.myapplication.ui.BaseFragmentWithModel
+import com.example.myapplication.ui.NavToolBar
 import com.example.myapplication.ui.actor_details.ActorFragment
 import com.example.myapplication.utils.DETAILS_POSTER_SIZE
 import com.example.myapplication.utils.MAIN_POSTER_LINK
@@ -40,6 +41,10 @@ class MovieFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (activity is NavToolBar) {
+            (activity as NavToolBar?)!!.supplyToolbar(binding.toolbar)
+        }
 
         adapter = ActorsAdapter()
         adapter.setOnClick(object : ActorsAdapter.OnClick {

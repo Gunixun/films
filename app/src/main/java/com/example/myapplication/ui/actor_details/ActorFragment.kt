@@ -16,6 +16,7 @@ import com.example.myapplication.model.Actor
 import com.example.myapplication.model.ActorPreview
 import com.example.myapplication.showSnackBar
 import com.example.myapplication.ui.BaseFragmentWithModel
+import com.example.myapplication.ui.NavToolBar
 import com.example.myapplication.utils.DETAILS_POSTER_SIZE
 import com.example.myapplication.utils.MAIN_POSTER_LINK
 import com.example.myapplication.viewmodel.ActorViewModel
@@ -70,6 +71,10 @@ class ActorFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (activity is NavToolBar) {
+            (activity as NavToolBar?)!!.supplyToolbar(binding.toolbar)
+        }
 
         actorId = arguments?.getString(ARG_PARAM)
         if (actorId != null) {
