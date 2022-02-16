@@ -2,6 +2,7 @@ package com.example.myapplication.ui
 
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.myapplication.ui.contacts.ContactsFragment
 import com.example.myapplication.ui.list.MoviesListFragment
 import com.example.myapplication.utils.TypeMovies
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.installations.FirebaseInstallations
 
 class MainActivity : AppCompatActivity(), NavToolBar {
 
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity(), NavToolBar {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        getToken()
 
         if (savedInstanceState == null) {
             openFragment(MoviesListFragment(), false)
@@ -102,6 +106,16 @@ class MainActivity : AppCompatActivity(), NavToolBar {
 
         drawer.addDrawerListener(toggle)
         toggle.syncState()
+    }
+
+    private fun getToken(){
+        FirebaseInstallations.getInstance().id.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("Installations", "Installation ID: " + task.result)
+            } else {
+                Log.e("Installations", "Unable to get Installation ID")
+            }
+        }
     }
 
     override fun onDestroy() {
