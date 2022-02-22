@@ -6,6 +6,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.myapplication.model.*
+import com.example.myapplication.model.dto.GenresDTO
+import com.example.myapplication.model.dto.MovieDTO
+import com.example.myapplication.model.dto.MoviesDTO
 import com.example.myapplication.utils.*
 import com.google.gson.Gson
 import java.io.BufferedReader
@@ -54,7 +57,7 @@ class MoviesRepository : IRepository {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
         executor.execute {
             val uri = URL("${MAIN_LINK}3/movie/popular?$API_KEY&$LANGUAGE")
             lateinit var urlConnection: HttpsURLConnection
@@ -70,27 +73,8 @@ class MoviesRepository : IRepository {
                     parseGenresMovies()
                 }
 
-                val moviePreviews: MutableList<MoviePreview> = mutableListOf()
-                for (movieDTO in moviesDTO.results) {
-                    val genres: MutableList<String> = mutableListOf()
-                    for (genre in movieDTO.genre_ids) {
-                        jenresMovies.get(genre)?.let { genres.add(it) }
-                    }
-                    moviePreviews.add(
-                        MoviePreview(
-                            title = movieDTO.title,
-                            original_title = movieDTO.original_title,
-                            average = movieDTO.vote_average.toString(),
-                            genres = genres,
-                            id = movieDTO.id,
-                            icon_path = movieDTO.poster_path,
-                            release_year = movieDTO.release_date.slice(0..3)
-                        )
-                    )
-                }
-
                 handler.post {
-                    callback.onSuccess(moviePreviews)
+                    callback.onSuccess(convertDTO(adult, moviesDTO, jenresMovies))
                 }
             } catch (e: Exception) {
                 Log.e("", "Fail connection", e)

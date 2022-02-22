@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="about_program">О программе</string>
+    <string name="settings">Настройки</string>
+    <string name="now_playing">Сейчас смотрят</string>
+    <string name="popular">Популярное</string>
+    <string name="top_rated">С высоким рейтингом</string>
+    <string name="history">История</string>
+    <string name="bookmarks">Закладки</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Поиск</string>
     <string name="content_description_search">Поиск</string>
@@ -10,4 +16,6 @@
     <string name="retry">Повторить</string>
     <string name="empty">Данные отсутствуют</string>
     <string name="video_image_description">Картинка фильма</string>
+    <string name="settings_adult">Фильмы для взрослых</string>
+    <string name="rating_description">Звездочка рейтинга</string>
 </resources>

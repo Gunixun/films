@@ -2,8 +2,10 @@ package com.example.myapplication.repository
 
 import com.example.myapplication.BuildConfig
 import com.example.myapplication.model.*
-import com.example.myapplication.utils.CallbackData
-import com.example.myapplication.utils.MAIN_LINK
+import com.example.myapplication.model.dto.GenresDTO
+import com.example.myapplication.model.dto.MovieDTO
+import com.example.myapplication.model.dto.MoviesDTO
+import com.example.myapplication.utils.*
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +42,7 @@ class RetrofitMoviesRepository : IRepository {
             })
     }
 
-    override fun getMovies(callback: CallbackData<List<MoviePreview>>) {
+    override fun getMovies(adult: Boolean, movieType: TypeMovies, callback: CallbackData<List<MoviePreview>>) {
         if (jenresMovies.isEmpty()) {
             getGenresMovies()
         }
@@ -50,31 +52,13 @@ class RetrofitMoviesRepository : IRepository {
             .addConverterFactory(
                 GsonConverterFactory.create(GsonBuilder().create())
             )
-            .build().create(PopularMoviesApi::class.java)
-        retrofit.getPopularMovies(BuildConfig.MOVIE_API_KEY)
+            .build().create(MoviesApi::class.java)
+        retrofit.getMovies(getCatalog(movieType), BuildConfig.MOVIE_API_KEY)
             .enqueue(object : Callback<MoviesDTO> {
                 override fun onResponse(call: Call<MoviesDTO>, response: Response<MoviesDTO>) {
                     val moviesDTO: MoviesDTO? = response.body()
                     if (moviesDTO != null) {
-                        val moviePreviews: MutableList<MoviePreview> = mutableListOf()
-                        for (movieDTO in moviesDTO.results) {
-                            val genres: MutableList<String> = mutableListOf()
-                            for (genre in movieDTO.genre_ids) {
-                                jenresMovies.get(genre)?.let { genres.add(it) }
-                            }
-                            moviePreviews.add(
-                                MoviePreview(
-                                    title = movieDTO.title,
-                                    original_title = movieDTO.original_title,
-                                    average = movieDTO.vote_average.toString(),
-                                    genres = genres,
-                                    id = movieDTO.id,
-                                    icon_path = movieDTO.poster_path,
-                                    release_year = movieDTO.release_date.slice(0..3)
-                                )
-                            )
-                        }
-                        callback.onSuccess(moviePreviews)
+                        callback.onSuccess(convertDTO(adult, moviesDTO, jenresMovies))
                     } else {
                         callback.onError(Throwable())
                     }

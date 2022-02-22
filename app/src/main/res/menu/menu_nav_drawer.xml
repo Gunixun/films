@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_top_rated"
+        android:title="@string/top_rated" />
+    <item
+        android:id="@+id/action_popular"
+        android:title="@string/popular" />
+    <item
+        android:id="@+id/action_now_playing"
+        android:title="@string/now_playing" />
+    <item
+        android:id="@+id/action_bookmarks"
+        android:title="@string/bookmarks" />
+    <item
+        android:id="@+id/action_history"
+        android:title="@string/history" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/settings" />
+    <item
         android:id="@+id/action_program_info"
         android:icon="@drawable/ic_baseline_info_24"
         android:title="@string/about_program" />
